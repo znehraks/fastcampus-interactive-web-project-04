@@ -2,9 +2,8 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import { Canvas } from "@react-three/fiber";
-import { Box, OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { RootMap } from "./maps/RootMap";
-import { Player } from "./maps/player";
 
 export const MainCanvas = () => {
   const aspectRatio = window.innerWidth / window.innerHeight;
@@ -35,7 +34,6 @@ export const MainCanvas = () => {
         shadow-camera-far={200}
       />
       <OrbitControls />
-      <Player />
       <RootMap />
     </Canvas>
   );
