@@ -9,6 +9,8 @@ import { ShibaInu } from "./elements/npc/ShibaInu";
 import { WoodChest } from "./elements/WoodChest";
 import { Key } from "./elements/Key";
 import { Steak } from "./elements/Steak";
+import { Cloud, Clouds } from "@react-three/drei";
+import { Vector3 } from "three";
 
 export const GroundElements = () => {
   return (
@@ -37,6 +39,29 @@ export const GroundElements = () => {
 
       <Swing />
       <JungleGym />
+      <Clouds>
+        <Cloud
+          segments={100}
+          volume={5}
+          scale={2}
+          concentrate={"random"}
+          opacity={0.5}
+          fade={10}
+          speed={2}
+          position={[-20, 0, -20]}
+        />
+        <Cloud
+          segments={100}
+          volume={5}
+          scale={2}
+          concentrate={"random"}
+          opacity={0.1}
+          fade={10}
+          speed={2}
+          position={[20, 0, -20]}
+          color={"skyblue"}
+        />
+      </Clouds>
     </>
   );
 };

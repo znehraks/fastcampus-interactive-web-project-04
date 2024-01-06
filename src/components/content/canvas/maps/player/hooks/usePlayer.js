@@ -55,7 +55,7 @@ export const usePlayer = ({ player, position, modelIndex }) => {
         .clone()
         .sub(position)
         .normalize()
-        .multiplyScalar(0.1);
+        .multiplyScalar(0.04);
       playerRef.current.position.sub(direction);
       playerRef.current.lookAt(position);
 
