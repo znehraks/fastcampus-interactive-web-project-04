@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { socket } from "../../sockets/clientSocket";
-import { useRecoilState } from "recoil";
-import { MeAtom } from "../../store/PlayersAtom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { MeAtom, PlayersAtom } from "../../store/PlayersAtom";
 
 export const ClientSocketControls = () => {
+  const setPlayers = useSetRecoilState(PlayersAtom);
   const [me, setMe] = useRecoilState(MeAtom);
   useEffect(() => {
     const handleConnect = () => {
@@ -23,8 +24,13 @@ export const ClientSocketControls = () => {
     const handleExit = () => {
       console.info("퇴장함");
     };
-    const handlePlayers = () => {
-      console.info("플레이어 관련 이벤트");
+    const handlePlayers = (value) => {
+      setPlayers(value);
+      const newMe = value.find((p) => p && me && p?.id === me?.id);
+      console.log("newMe", newMe);
+      if (newMe) {
+        setMe(newMe);
+      }
     };
     const handleNewText = () => {
       console.info("새로운 텍스트");
@@ -46,6 +52,6 @@ export const ClientSocketControls = () => {
       socket.off("players", handlePlayers);
       socket.off("newText", handleNewText);
     };
-  }, [setMe]);
+  }, [me, setMe, setPlayers]);
   return null;
 };

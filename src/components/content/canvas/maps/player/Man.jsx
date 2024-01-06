@@ -4,38 +4,22 @@
 import * as THREE from "three";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import { useGraph } from "@react-three/fiber";
+import { useFrame, useGraph } from "@react-three/fiber";
 import { SkeletonUtils } from "three-stdlib";
 import React from "react";
+import { calculateMinimapPosition } from "../../../../../utils";
+import { useRecoilValue } from "recoil";
+import { MeAtom } from "../../../../../store/PlayersAtom";
+import { usePlayer } from "./hooks/usePlayer";
 
-export function Man({ player, position }) {
-  const playerId = player?.id;
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const memoizedPosition = useMemo(() => position, []);
-
-  const playerRef = useRef(null);
-
-  const { scene, materials, animations } = useGLTF(
-    `/models/CubeGuyCharacter.glb`
+export function Man({ player, position, modelIndex }) {
+  const { playerRef, memoizedPosition, playerId, nodes, materials } = usePlayer(
+    {
+      player,
+      position,
+      modelIndex: modelIndex ?? player.selectedCharacterGlbNameIndex,
+    }
   );
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const clone = useMemo(() => SkeletonUtils.clone(scene), []);
-  const objectMap = useGraph(clone);
-  const nodes = objectMap.nodes;
-
-  const [animation, setAnimation] = useState(
-    "CharacterArmature|CharacterArmature|CharacterArmature|Idle"
-  );
-  const { actions } = useAnimations(animations, playerRef);
-
-  useEffect(() => {
-    actions[animation]?.reset().fadeIn(0.5).play();
-    return () => {
-      actions[animation]?.fadeOut(0.5);
-    };
-  }, [actions, animation]);
 
   return (
     <group
