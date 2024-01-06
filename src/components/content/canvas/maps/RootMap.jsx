@@ -30,10 +30,11 @@ export const RootMap = () => {
         <>
           <GroundElements />
           {players.map((player) => {
-            return (
-              <>
-                {player.selectedCharacterGlbNameIndex === 0 && (
+            switch (player.selectedCharacterGlbNameIndex) {
+              case 0:
+                return (
                   <Man
+                    key={player.id}
                     player={player}
                     position={
                       new THREE.Vector3(
@@ -43,9 +44,11 @@ export const RootMap = () => {
                       )
                     }
                   />
-                )}
-                {player.selectedCharacterGlbNameIndex === 1 && (
+                );
+              case 1:
+                return (
                   <Woman
+                    key={player.id}
                     player={player}
                     position={
                       new THREE.Vector3(
@@ -55,9 +58,11 @@ export const RootMap = () => {
                       )
                     }
                   />
-                )}
-                {player.selectedCharacterGlbNameIndex === 2 && (
+                );
+              case 2:
+                return (
                   <Kid
+                    key={player.id}
                     player={player}
                     position={
                       new THREE.Vector3(
@@ -67,9 +72,10 @@ export const RootMap = () => {
                       )
                     }
                   />
-                )}
-              </>
-            );
+                );
+              default:
+                return null;
+            }
           })}
         </>
       )}
