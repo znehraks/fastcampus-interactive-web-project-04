@@ -23,3 +23,15 @@ export const SelectedCharacterGlbNameIndexAtom = atom({
   key: "SelectedCharacterGlbNameIndexAtom",
   default: 0,
 });
+
+// 현재 완료된 퀘스트 목록
+export const PlayerCompletedQuestsAtom = atom({
+  key: "PlayerQuestsAtom",
+  default: [],
+});
+
+// 현재 플레이어의 인벤토리
+export const PlayerInventoryAtom = atom({
+  key: "PlayerInventoryAtom",
+  default: [],
+});
