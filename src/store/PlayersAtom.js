@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 // 모든 플레이어들
 export const PlayersAtom = atom({
@@ -34,4 +34,42 @@ export const PlayerCompletedQuestsAtom = atom({
 export const PlayerInventoryAtom = atom({
   key: "PlayerInventoryAtom",
   default: [],
+});
+
+// 운동장에 배치된 오브젝트들의 경계선 정보
+export const PlayGroundStructuresBoundingBoxAtom = atom({
+  key: "PlayGroundStructuresBoundingBoxAtom",
+  default: [],
+});
+
+// 운동장에 배치된 오브젝트들의 경계선 꼭짓점 정보
+export const PlayerGroundStructuresFloorPlaneCornersSelector = selector({
+  key: "PlayerGroundStructuresFloorPlaneCornersSelector",
+  get: ({ get }) => {
+    const pb = get(PlayGroundStructuresBoundingBoxAtom);
+    return pb.map((item) => {
+      return {
+        name: item.name,
+        corners: [
+          {
+            x: item.box.max.x + item.position.x,
+            z: item.box.max.z + item.position.z,
+          },
+          {
+            x: item.box.max.x + item.position.x,
+            z: item.box.min.z + item.position.z,
+          },
+          {
+            x: item.box.min.x + item.position.x,
+            z: item.box.min.z + item.position.z,
+          },
+          {
+            x: item.box.min.x + item.position.x,
+            z: item.box.max.z + item.position.z,
+          },
+        ],
+        position: item.position,
+      };
+    });
+  },
 });

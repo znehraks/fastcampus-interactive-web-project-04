@@ -10,7 +10,6 @@ import { WoodChest } from "./elements/WoodChest";
 import { Key } from "./elements/Key";
 import { Steak } from "./elements/Steak";
 import { Cloud, Clouds } from "@react-three/drei";
-import { Vector3 } from "three";
 
 export const GroundElements = () => {
   return (
