@@ -8,9 +8,7 @@ import {
 import { CharacterInit } from "../../lobby/CharacterInit";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { Man } from "./player/Man";
-import { Woman } from "./player/Woman";
-import { Kid } from "./player/Kid";
+import { Player } from "./player/Player";
 
 export const RootMap = () => {
   const [characterSelectFinished] = useRecoilState(CharacterSelectFinishedAtom);
@@ -30,52 +28,19 @@ export const RootMap = () => {
         <>
           <GroundElements />
           {players.map((player) => {
-            switch (player.selectedCharacterGlbNameIndex) {
-              case 0:
-                return (
-                  <Man
-                    key={player.id}
-                    player={player}
-                    position={
-                      new THREE.Vector3(
-                        player.position[0],
-                        player.position[1],
-                        player.position[2]
-                      )
-                    }
-                  />
-                );
-              case 1:
-                return (
-                  <Woman
-                    key={player.id}
-                    player={player}
-                    position={
-                      new THREE.Vector3(
-                        player.position[0],
-                        player.position[1],
-                        player.position[2]
-                      )
-                    }
-                  />
-                );
-              case 2:
-                return (
-                  <Kid
-                    key={player.id}
-                    player={player}
-                    position={
-                      new THREE.Vector3(
-                        player.position[0],
-                        player.position[1],
-                        player.position[2]
-                      )
-                    }
-                  />
-                );
-              default:
-                return null;
-            }
+            return (
+              <Player
+                key={player.id}
+                player={player}
+                position={
+                  new THREE.Vector3(
+                    player.position[0],
+                    player.position[1],
+                    player.position[2]
+                  )
+                }
+              />
+            );
           })}
         </>
       )}

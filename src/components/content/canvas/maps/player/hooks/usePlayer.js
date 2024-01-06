@@ -12,6 +12,7 @@ export const usePlayer = ({ player, position, modelIndex }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const memoizedPosition = useMemo(() => position, []);
 
+  const nicknameRef = useRef(null);
   const playerRef = useRef(null);
 
   const { scene, materials, animations } = useGLTF(
@@ -64,7 +65,14 @@ export const usePlayer = ({ player, position, modelIndex }) => {
         "CharacterArmature|CharacterArmature|CharacterArmature|Idle"
       );
     }
-
+    if (nicknameRef.current) {
+      nicknameRef.current.position.set(
+        playerRef.current.position.x,
+        playerRef.current.position.y + 3.5,
+        playerRef.current.position.z
+      );
+      nicknameRef.current.lookAt(10000, 10000, 10000);
+    }
     if (me?.id === playerId) {
       camera.position.set(
         playerRef.current.position.x + 12,
@@ -75,5 +83,13 @@ export const usePlayer = ({ player, position, modelIndex }) => {
     }
   });
 
-  return { playerRef, memoizedPosition, playerId, nodes, materials };
+  return {
+    me,
+    nicknameRef,
+    playerRef,
+    memoizedPosition,
+    playerId,
+    nodes,
+    materials,
+  };
 };

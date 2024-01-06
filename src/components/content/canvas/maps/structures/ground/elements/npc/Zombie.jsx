@@ -1,10 +1,11 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Vector3 } from "three";
-import { useFrame } from "@react-three/fiber";
+import { NicknameBoard } from "../../3dUIs/NicknameBoard";
 
 const name = "ground-npc-zombie";
 export const Zombie = () => {
+  const nameRef = useRef(null);
   const ref = useRef(null);
 
   const { scene, animations } = useGLTF("/models/Zombie.glb");
@@ -15,6 +16,12 @@ export const Zombie = () => {
   );
 
   useEffect(() => {
+    if (!ref.current) return;
+    nameRef.current.position.set(
+      ref.current.position.x,
+      ref.current.position.y + 4,
+      ref.current.position.z
+    );
     scene.traverse((mesh) => {
       mesh.castShadow = true;
       mesh.receiveShadow = true;
@@ -26,13 +33,16 @@ export const Zombie = () => {
   }, [actions, currentAnimation, scene]);
 
   return (
-    <primitive
-      scale={1.2}
-      ref={ref}
-      visible
-      name={name}
-      position={position}
-      object={scene}
-    />
+    <>
+      <NicknameBoard ref={nameRef} text="야근좀비" isNpc />
+      <primitive
+        scale={1.2}
+        ref={ref}
+        visible
+        name={name}
+        position={position}
+        object={scene}
+      />
+    </>
   );
 };
