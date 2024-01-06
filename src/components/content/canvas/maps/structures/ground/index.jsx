@@ -6,6 +6,9 @@ import { PineTrees } from "./elements/PineTrees";
 import { Dinosaur } from "./elements/npc/Dinosaur";
 import { Zombie } from "./elements/npc/Zombie";
 import { ShibaInu } from "./elements/npc/ShibaInu";
+import { WoodChest } from "./elements/WoodChest";
+import { Key } from "./elements/Key";
+import { Steak } from "./elements/Steak";
 
 export const GroundElements = () => {
   return (
@@ -27,6 +30,10 @@ export const GroundElements = () => {
 
       <PineTrees position={[-30, 0, -20]} />
       <PineTrees position={[-20, 0, -20]} />
+
+      <WoodChest />
+      <Key />
+      <Steak />
 
       <Swing />
       <JungleGym />
