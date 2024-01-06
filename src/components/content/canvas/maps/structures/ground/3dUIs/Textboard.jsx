@@ -2,7 +2,7 @@ import { Billboard, Text } from "@react-three/drei";
 import { Ref, forwardRef } from "react";
 import { Group } from "three";
 
-export const NicknameBoard = forwardRef(({ text, isNpc }, ref) => {
+export const Textboard = forwardRef(({ text, isNpc }, ref) => {
   return (
     <Billboard ref={ref}>
       <Text

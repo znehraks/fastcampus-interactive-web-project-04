@@ -1,6 +1,6 @@
 import React from "react";
 import { usePlayer } from "./hooks/usePlayer";
-import { NicknameBoard } from "../structures/ground/3dUIs/NicknameBoard";
+import { Textboard } from "../structures/ground/3dUIs/Textboard";
 
 export function Player({ player, position, modelIndex: mIdx }) {
   const modelIndex = mIdx ?? player.selectedCharacterGlbNameIndex;
@@ -21,7 +21,7 @@ export function Player({ player, position, modelIndex: mIdx }) {
   return (
     <>
       {me && (
-        <NicknameBoard
+        <Textboard
           ref={nicknameRef}
           text={`${player?.nickname}${player?.jobPosition}`}
         />
