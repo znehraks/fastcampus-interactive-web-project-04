@@ -1,6 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-unknown-property */
-
 import * as THREE from "three";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
