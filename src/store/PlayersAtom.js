@@ -97,3 +97,15 @@ export const ChatsAtom = atom({
   key: "ChatsAtom",
   default: [],
 });
+
+// 최근 채팅 정보
+export const RecentChatsAtom = atom({
+  key: "RecentChatsSelector",
+  default: [],
+});
+
+// 이미 표시된 최근 채팅 정보
+export const AlreadyDisplayedRecentChatsAtom = atom({
+  key: "AlreadyDisplayedRecentChatsAtom",
+  default: [],
+});

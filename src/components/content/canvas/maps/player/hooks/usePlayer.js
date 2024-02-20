@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import { useFrame, useGraph } from "@react-three/fiber";
+import { useFrame, useGraph, useThree } from "@react-three/fiber";
 import { SkeletonUtils } from "three-stdlib";
 import { useRecoilValue } from "recoil";
 import {
@@ -19,6 +19,11 @@ export const usePlayer = ({ player, position, modelIndex }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const memoizedPosition = useMemo(() => position, []);
   const point = document.getElementById(`player-point-${playerId}`);
+  const { scene: threeScene } = useThree();
+  const chatBubbleBoard = threeScene.getObjectByName(
+    `chat-bubble-billboard-${playerId}`
+  );
+
   const nicknameRef = useRef(null);
   const playerRef = useRef(null);
 
@@ -86,6 +91,14 @@ export const usePlayer = ({ player, position, modelIndex }) => {
         playerRef.current.position.z
       );
       nicknameRef.current.lookAt(10000, 10000, 10000);
+    }
+    if (chatBubbleBoard) {
+      chatBubbleBoard.position.set(
+        playerRef.current.position.x,
+        playerRef.current.position.y + 4,
+        playerRef.current.position.z
+      );
+      chatBubbleBoard.lookAt(10000, 10000, 10000);
     }
     if (me?.id === playerId) {
       camera.position.set(
