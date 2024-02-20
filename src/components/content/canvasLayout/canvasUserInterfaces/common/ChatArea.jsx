@@ -11,17 +11,12 @@ export const ChatArea = () => {
   const ref = useRef(null);
   const [isChatContentOpen, setIsChatContentOpen] = useState(false);
   const chats = useRecoilValue(ChatsAtom);
-  const [_chats, _setChats] = useState([]);
   const [tempText, setTempText] = useState();
 
   const handleSubmit = useCallback(() => {
     if (isValidText(tempText)) {
       socket.emit("newText", tempText);
       setTempText("");
-      _setChats((prev) => [
-        ...prev,
-        { senderNickname: "나", senderJobPosition: "개발자", text: tempText },
-      ]);
       if (!ref.current) return;
       ref.current.scrollTop = ref.current.scrollHeight;
     }
@@ -33,14 +28,6 @@ export const ChatArea = () => {
         if (e.key === "Enter") {
           socket.emit("newText", tempText);
           setTempText("");
-          _setChats((prev) => [
-            ...prev,
-            {
-              senderNickname: "나",
-              senderJobPosition: "개발자",
-              text: tempText,
-            },
-          ]);
           if (!ref.current) return;
           ref.current.scrollTop = ref.current.scrollHeight;
         }
@@ -56,7 +43,7 @@ export const ChatArea = () => {
           <span>채팅창</span>
         </ChatAreaTitle>
         <ChatContentContainer ref={ref}>
-          {_chats.map(({ senderNickname, senderJobPosition, text }, index) => (
+          {chats.map(({ senderNickname, senderJobPosition, text }, index) => (
             <ChatLine key={index}>
               <ChatSender>{`${senderNickname}[${senderJobPosition}]`}</ChatSender>
               {" : "}
