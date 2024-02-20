@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import { IsLoadCompletedAtom } from "../../../store/PlayersAtom";
 import { SideBar } from "./canvasUserInterfaces/common/SideBar";
 import styled from "styled-components";
+import { Minimap } from "./canvasUserInterfaces/ground/Minimap";
 
 export const CanvasLayout = ({ children }) => {
   const [isLoadCompleted] = useRecoilState(IsLoadCompletedAtom);
@@ -10,7 +11,12 @@ export const CanvasLayout = ({ children }) => {
   return (
     <Wrapper>
       {children}
-      {isLoadCompleted && <SideBar />}
+      {isLoadCompleted && (
+        <>
+          <SideBar />
+          <Minimap />
+        </>
+      )}
     </Wrapper>
   );
 };
