@@ -91,3 +91,9 @@ export const CurrentMyRoomPlayerAtom = atom({
   key: "CurrentMyRoomPlayerAtom",
   default: undefined,
 });
+
+// 모든 채팅 정보
+export const ChatsAtom = atom({
+  key: "ChatsAtom",
+  default: [],
+});
