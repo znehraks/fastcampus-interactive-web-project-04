@@ -1,17 +1,25 @@
 import { useRecoilValue } from "recoil";
-import { CurrentPlacingMyRoomSkillAtom } from "../../../../../../store/PlayersAtom";
+import {
+  CurrentMyRoomPlayerAtom,
+  CurrentPlacingMyRoomSkillAtom,
+} from "../../../../../../store/PlayersAtom";
 import { MyRoomFloor } from "./elements/MyRoomFloor";
 import { MyRoomLeftWall } from "./elements/MyRoomLeftWall";
 import { MyRoomRightWall } from "./elements/MyRoomRightWall";
 import { MyRoomSkillPlaceMode } from "./placeMode/MyRoomSkillPlaceMode";
+import { MyRoomElements } from "./elements";
 
 export const MyRoom = () => {
   const currentPlacingMyRoomSkill = useRecoilValue(
     CurrentPlacingMyRoomSkillAtom
   );
+  const currentMyRoomPlayer = useRecoilValue(CurrentMyRoomPlayerAtom);
 
   return (
     <>
+      {currentMyRoomPlayer?.myRoom?.objects.map((object) => {
+        return <MyRoomElements key={object.name} object={object} />;
+      })}
       <directionalLight
         castShadow
         intensity={1}

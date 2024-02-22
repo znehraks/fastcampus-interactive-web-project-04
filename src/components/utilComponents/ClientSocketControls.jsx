@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   AlreadyDisplayedRecentChatsAtom,
   ChatsAtom,
+  CurrentMyRoomPlayerAtom,
   EnteredPlayerNoticeAtom,
   ExitedPlayerNoticeAtom,
   MeAtom,
@@ -22,6 +23,9 @@ export const ClientSocketControls = () => {
   );
   const setEnterNotice = useSetRecoilState(EnteredPlayerNoticeAtom);
   const setExitNotice = useSetRecoilState(ExitedPlayerNoticeAtom);
+  const [currentMyRoomPlayer, setCurrentMyRoomPlayer] = useRecoilState(
+    CurrentMyRoomPlayerAtom
+  );
 
   useEffect(() => {
     const handleConnect = () => {
@@ -45,11 +49,20 @@ export const ClientSocketControls = () => {
     };
 
     const handlePlayers = (value) => {
+      console.log("currentMyRoomPlayer", currentMyRoomPlayer);
+      console.log("value", value);
       setPlayers(value);
       const newMe = value.find((p) => p && me && p?.id === me?.id);
       console.log("newMe", newMe);
       if (newMe) {
         setMe(newMe);
+      }
+      const currentMyRoomUpdated = value.find(
+        (p) => p && currentMyRoomPlayer && p?.id === currentMyRoomPlayer?.id
+      );
+      console.log("currentMyRoomUpdated", currentMyRoomUpdated);
+      if (currentMyRoomUpdated) {
+        setCurrentMyRoomPlayer(currentMyRoomUpdated);
       }
     };
     const handleNewText = ({
@@ -103,12 +116,16 @@ export const ClientSocketControls = () => {
   }, [
     alreadyDisplayedRecentChats,
     chats,
+    currentMyRoomPlayer,
+    currentMyRoomPlayer?.id,
     me,
     me?.id,
     setChats,
+    setCurrentMyRoomPlayer,
+    setEnterNotice,
+    setExitNotice,
     setMe,
     setPlayers,
-    setRecentChats,
   ]);
   return null;
 };
