@@ -144,9 +144,44 @@ export const MyRoomSkillPlaceMode = ({ currentPlacingMyRoomSkill }) => {
       }
     };
 
+    const handlePointerUp = () => {
+      const myRoomObjects = getMyRoomObjects(
+        scene,
+        `my-room-${currentPlacingMyRoomSkill}`
+      );
+      socket.emit(
+        "myRoomChange",
+        {
+          objects: [
+            ...myRoomObjects,
+            {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              name: `my-room-${currentPlacingMyRoomSkill}`,
+              position: [
+                ref.current.position.x,
+                ref.current.position.y,
+                ref.current.position.z,
+              ],
+              rotation: [
+                ref.current.rotation.x,
+                ref.current.rotation.y,
+                ref.current.rotation.z,
+              ],
+            },
+          ],
+        },
+        currentMyRoomPlayer?.id
+      );
+      setCurrentPlacingMyRoomSkill(undefined);
+
+      // socket.emit 하기 배치했음을 알려야함
+    };
+
     gl.domElement.addEventListener("pointermove", handlePointerMove);
+    gl.domElement.addEventListener("pointerup", handlePointerUp);
     return () => {
       gl.domElement.removeEventListener("pointermove", handlePointerMove);
+      gl.domElement.removeEventListener("pointerup", handlePointerUp);
     };
   }, [
     camera,
