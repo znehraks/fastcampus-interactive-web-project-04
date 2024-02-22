@@ -12,10 +12,11 @@ import { CharacterInit } from "../../lobby/CharacterInit";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { Player } from "./player/Player";
-import { Line } from "@react-three/drei";
+import { Line, OrbitControls } from "@react-three/drei";
 import { Loader } from "../../loader/Loader";
 import { ChatBubble } from "./structures/ground/3dUIs/ChatBubble";
 import { MyRoom } from "./structures/myRoom";
+import gsap from "gsap";
 
 export const RootMap = () => {
   const [characterSelectFinished] = useRecoilState(CharacterSelectFinishedAtom);
@@ -28,16 +29,51 @@ export const RootMap = () => {
   const camera = useThree((three) => three.camera);
   const controls = useRef(null);
   useEffect(() => {
-    if (!controls.current) return;
-    camera.position.set(14, 14, 14);
-    controls.current.target.set(0, 0, 0);
-  }, [camera.position]);
+    if (currentMap === "GROUND") {
+      document.exitPointerLock();
+      if (!controls.current) return;
+
+      camera.position.set(14, 14, 14);
+      controls.current.target.set(0, 0, 0);
+      return;
+    }
+
+    if (currentMap === "MY_ROOM") {
+      if (!controls.current) return;
+      gsap.fromTo(
+        camera.position,
+        {
+          duration: 1,
+          x: 0,
+          y: 0,
+          z: 0,
+        },
+        {
+          x: 25,
+          y: 25,
+          z: 25,
+        }
+      );
+
+      return;
+    }
+  }, [camera, camera.position, currentMap]);
   return (
     <>
       <ambientLight
         name="ambientLight"
         intensity={currentMap === "GROUND" ? 5 : 0.5}
       />
+
+      <OrbitControls
+        ref={controls}
+        minDistance={5}
+        maxDistance={1000}
+        maxPolarAngle={currentMap === "MY_ROOM" ? Math.PI / 2 : Math.PI}
+        maxAzimuthAngle={currentMap === "MY_ROOM" ? Math.PI / 2 : Infinity}
+        minAzimuthAngle={currentMap === "MY_ROOM" ? 0 : -Infinity}
+      />
+
       {currentMap === "GROUND" && (
         <Suspense fallback={<Loader />}>
           <directionalLight
