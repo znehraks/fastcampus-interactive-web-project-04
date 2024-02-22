@@ -1,8 +1,15 @@
+import { useRecoilValue } from "recoil";
+import { CurrentPlacingMyRoomSkillAtom } from "../../../../../../store/PlayersAtom";
 import { MyRoomFloor } from "./elements/MyRoomFloor";
 import { MyRoomLeftWall } from "./elements/MyRoomLeftWall";
 import { MyRoomRightWall } from "./elements/MyRoomRightWall";
+import { MyRoomSkillPlaceMode } from "./placeMode/MyRoomSkillPlaceMode";
 
 export const MyRoom = () => {
+  const currentPlacingMyRoomSkill = useRecoilValue(
+    CurrentPlacingMyRoomSkillAtom
+  );
+
   return (
     <>
       <directionalLight
@@ -24,6 +31,12 @@ export const MyRoom = () => {
       <MyRoomFloor />
       <MyRoomLeftWall />
       <MyRoomRightWall />
+      {/* 배치모드  */}
+      {currentPlacingMyRoomSkill && (
+        <MyRoomSkillPlaceMode
+          currentPlacingMyRoomSkill={currentPlacingMyRoomSkill}
+        />
+      )}
     </>
   );
 };
