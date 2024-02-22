@@ -121,3 +121,21 @@ export const ExitedPlayerNoticeAtom = atom({
   key: "ExitedPlayerNoticeAtom",
   default: undefined,
 });
+
+//  현재 배치중인 기술스택박스 이름
+export const CurrentPlacingMyRoomSkillAtom = atom({
+  key: "CurrentPlacingMyRoomSkillAtom",
+  default: undefined,
+});
+
+// 현재 배치중인 가구 이름
+export const CurrentPlacingMyRoomFurnitureAtom = atom({
+  key: "CurrentPlacingMyRoomFurnitureAtom",
+  default: undefined,
+});
+
+// 현재 배치중인 메모 정보
+export const CurrentPlacingMyRoomMemoAtom = atom({
+  key: "CurrentPlacingMyRoomMemoAtom",
+  default: undefined,
+});
