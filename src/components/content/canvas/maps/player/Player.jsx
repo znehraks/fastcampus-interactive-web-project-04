@@ -12,6 +12,7 @@ export function Player({ player, position, modelIndex: mIdx }) {
     playerId,
     nodes,
     materials,
+    setCurrentMyRoomPlayer,
   } = usePlayer({
     player,
     position,
@@ -30,6 +31,12 @@ export function Player({ player, position, modelIndex: mIdx }) {
         ref={playerRef}
         position={memoizedPosition}
         name={playerId ?? ""}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (me?.id !== playerId) {
+            setCurrentMyRoomPlayer(player);
+          }
+        }}
         dispose={null}
       >
         <group name="Root_Scene">
