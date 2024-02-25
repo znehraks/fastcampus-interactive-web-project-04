@@ -14,6 +14,7 @@ import { Notice } from "./canvasUserInterfaces/common/Notice";
 import { Footer } from "./canvasUserInterfaces/common/Footer";
 import { Popup } from "./canvasUserInterfaces/ground/Popup";
 import { MyRoomToolBar } from "./canvasUserInterfaces/myRoom/MyRoomToolBar";
+import { Memo } from "./canvasUserInterfaces/myRoom/Memo";
 
 export const CanvasLayout = ({ children }) => {
   const [isLoadCompleted] = useRecoilState(IsLoadCompletedAtom);
@@ -29,6 +30,7 @@ export const CanvasLayout = ({ children }) => {
           <Notice />
           <SideBar />
           <Minimap />
+          <Memo />
           {currentMap !== "MINI_GAME" && <ChatArea />}
           {currentMap === "GROUND" && (
             <>

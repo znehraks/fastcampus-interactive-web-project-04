@@ -1,4 +1,5 @@
 import { MyRoomPlacedFurniture } from "./MyRoomPlacedFurniture";
+import { MyRoomPlacedMemo } from "./MyRoomPlacedMemo";
 import { MyRoomPlacedSkillBox } from "./MyRoomPlacedSkillBox";
 
 export const MyRoomElements = ({ object }) => {
@@ -24,5 +25,19 @@ export const MyRoomElements = ({ object }) => {
         }}
       />
     );
+  if (object.name.includes("my-room-memo")) {
+    return (
+      <MyRoomPlacedMemo
+        key={object.name}
+        placedMyRoomMemo={{
+          authorNickname: object.authorNickname ?? "",
+          position: object.position,
+          rotation: object.rotation,
+          text: object.text ?? "",
+          timestamp: object.timestamp ?? "",
+        }}
+      />
+    );
+  }
   return null;
 };

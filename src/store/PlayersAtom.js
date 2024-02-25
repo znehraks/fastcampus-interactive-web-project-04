@@ -139,3 +139,9 @@ export const CurrentPlacingMyRoomMemoAtom = atom({
   key: "CurrentPlacingMyRoomMemoAtom",
   default: undefined,
 });
+
+// 현재 팝업에 띄워진 메모 정보
+export const CurrentSelectedMemoAtom = atom({
+  key: "CurrentSelectedMemoAtom",
+  default: undefined,
+});
