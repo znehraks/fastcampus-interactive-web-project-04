@@ -175,3 +175,15 @@ export const IsMiniGameClearedAtom = atom({
   key: " IsMiniGameClearedAtom",
   default: false,
 });
+
+// 현재 맞춘 표적 수
+export const HitCountAtom = atom({
+  key: "HitCountAtom",
+  default: 0,
+});
+
+// 현재 남은 총알 개수
+export const BulletCountAtom = atom({
+  key: "BulletCountAtom",
+  default: 15,
+});

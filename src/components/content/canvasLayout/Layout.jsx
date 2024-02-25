@@ -17,6 +17,8 @@ import { MyRoomToolBar } from "./canvasUserInterfaces/myRoom/MyRoomToolBar";
 import { Memo } from "./canvasUserInterfaces/myRoom/Memo";
 import { SelectedObjectMenuBar } from "./canvasUserInterfaces/myRoom/SelectedObjectMenuBar";
 import { Tooltip } from "./canvasUserInterfaces/myRoom/Tooltip";
+import { MiniGameUI } from "./canvasUserInterfaces/miniGame/MiniGameUI";
+import { Crosshair } from "./canvasUserInterfaces/miniGame/Crosshair";
 
 export const CanvasLayout = ({ children }) => {
   const [isLoadCompleted] = useRecoilState(IsLoadCompletedAtom);
@@ -46,6 +48,12 @@ export const CanvasLayout = ({ children }) => {
               <MyRoomToolBar />
               {currentMyRoomPlayer?.id === me.id && <SelectedObjectMenuBar />}
               <Tooltip />
+            </>
+          )}
+          {currentMap === "MINI_GAME" && (
+            <>
+              <MiniGameUI />
+              <Crosshair />
             </>
           )}
         </>
