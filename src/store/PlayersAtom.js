@@ -151,3 +151,15 @@ export const CurrentSelectedMyRoomObjectAtom = atom({
   key: "CurrentSelectedMyRoomObjectAtom",
   default: undefined,
 });
+
+//  현재 회전중인 가구
+export const CurrentRotationingMyRoomObjectAtom = atom({
+  key: "CurrentRotationingMyRoomObjectAtom",
+  default: undefined,
+});
+
+// 현재 회전된 각
+export const CurrentRotationAtom = atom({
+  key: "CurrentRotationAtom",
+  default: undefined,
+});
