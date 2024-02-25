@@ -163,3 +163,15 @@ export const CurrentRotationAtom = atom({
   key: "CurrentRotationAtom",
   default: undefined,
 });
+
+// 미니게임(사격게임) 관련
+export const IsMiniGameStartedAtom = atom({
+  key: "IsMiniGameStartedAtom",
+  default: false,
+});
+
+// 현재 미니게임이 끝났는지 여부
+export const IsMiniGameClearedAtom = atom({
+  key: " IsMiniGameClearedAtom",
+  default: false,
+});

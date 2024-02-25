@@ -4,6 +4,7 @@ import { OrbitControls } from "@react-three/drei";
 import { RootMap } from "./maps/RootMap";
 import { useRecoilValue } from "recoil";
 import { CurrentMapAtom } from "../../../store/PlayersAtom";
+import { Physics } from "@react-three/cannon";
 
 export const MainCanvas = () => {
   const currentMap = useRecoilValue(CurrentMapAtom);
@@ -24,8 +25,14 @@ export const MainCanvas = () => {
       {currentMap === "MY_ROOM" && (
         <color attach="background" args={["beige"]} />
       )}
-      <OrbitControls />
-      <RootMap />
+
+      <Physics
+        gravity={[0, -20, 0]}
+        defaultContactMaterial={{ restitution: 0.1, friction: 0 }}
+        allowSleep
+      >
+        <RootMap />
+      </Physics>
     </Canvas>
   );
 };
