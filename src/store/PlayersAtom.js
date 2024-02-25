@@ -187,3 +187,9 @@ export const BulletCountAtom = atom({
   key: "BulletCountAtom",
   default: 15,
 });
+
+// 현재 발사된 총의 남은 쿨타임
+export const CoolTimeAtom = atom({
+  key: "CoolTimeAtom",
+  default: undefined,
+});
