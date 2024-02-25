@@ -1,6 +1,7 @@
 import { useRecoilValue } from "recoil";
 import {
   CurrentMyRoomPlayerAtom,
+  CurrentPlacingMyRoomFurnitureAtom,
   CurrentPlacingMyRoomSkillAtom,
 } from "../../../../../../store/PlayersAtom";
 import { MyRoomFloor } from "./elements/MyRoomFloor";
@@ -8,10 +9,15 @@ import { MyRoomLeftWall } from "./elements/MyRoomLeftWall";
 import { MyRoomRightWall } from "./elements/MyRoomRightWall";
 import { MyRoomSkillPlaceMode } from "./placeMode/MyRoomSkillPlaceMode";
 import { MyRoomElements } from "./elements";
+import { MyRoomFurniturePlaceMode } from "./placeMode/MyRoomFurniturePlaceMode";
 
 export const MyRoom = () => {
   const currentPlacingMyRoomSkill = useRecoilValue(
     CurrentPlacingMyRoomSkillAtom
+  );
+
+  const currentPlacingMyRoomFurniture = useRecoilValue(
+    CurrentPlacingMyRoomFurnitureAtom
   );
   const currentMyRoomPlayer = useRecoilValue(CurrentMyRoomPlayerAtom);
 
@@ -43,6 +49,11 @@ export const MyRoom = () => {
       {currentPlacingMyRoomSkill && (
         <MyRoomSkillPlaceMode
           currentPlacingMyRoomSkill={currentPlacingMyRoomSkill}
+        />
+      )}
+      {currentPlacingMyRoomFurniture && (
+        <MyRoomFurniturePlaceMode
+          currentPlacingMyRoomFurniture={currentPlacingMyRoomFurniture}
         />
       )}
     </>
