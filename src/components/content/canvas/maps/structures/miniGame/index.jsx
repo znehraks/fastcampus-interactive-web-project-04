@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PointerLockControls } from "@react-three/drei";
 import { GunHand } from "./elements/GunHand";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Color, Quaternion, Vector3 } from "three";
 import { MiniGameFloor } from "./elements/MiniGameFloor";
 import { useRecoilState } from "recoil";
 import {
   CurrentMapAtom,
+  HitCountAtom,
   IsMiniGameClearedAtom,
   IsMiniGameStartedAtom,
 } from "../../../../../../store/PlayersAtom";
+import { TargetMesh } from "./elements/TargetMesh";
 
 const COOL_TIME = 2000;
 let movement = { forward: false, backward: false, left: false, right: false };
@@ -26,9 +28,52 @@ export const MiniGame = () => {
   const [isMiniGameCleared, setIsMiniGameCleared] = useRecoilState(
     IsMiniGameClearedAtom
   );
+  const [hitCount, setHitCount] = useRecoilState(HitCountAtom);
   const [isBouncing, setIsBouncing] = useState(false);
   const [isShooting, setIsShooting] = useState(false);
   const gunHand = three.scene.getObjectByName("gunHand");
+
+  const randomShapes = useMemo(
+    () =>
+      Array(10)
+        .fill(null)
+        .map(
+          () =>
+            new Vector3(
+              Math.random() - 0.5 + 1,
+              Math.random() - 0.5 + 1,
+              Math.random() - 0.5 + 1
+            )
+        ),
+    [isMiniGameCleared]
+  );
+
+  const randomPositions = useMemo(
+    () =>
+      Array(10)
+        .fill(null)
+        .map(
+          () =>
+            new Vector3(
+              (Math.random() - 0.5) * 30,
+              2,
+              (Math.random() - 0.5) * 30
+            )
+        ),
+    [isMiniGameCleared]
+  );
+
+  const randomColors = useMemo(
+    () =>
+      Array(10)
+        .fill(null)
+        .map(
+          () =>
+            Number(`0x${Math.floor(Math.random() * 16777000).toString(16)}`),
+          -10
+        ),
+    []
+  );
 
   useEffect(() => {
     three.scene.background = new Color(0x000000);
@@ -243,6 +288,19 @@ export const MiniGame = () => {
         />
       )}
       <GunHand />
+      <instancedMesh>
+        {!isMiniGameCleared &&
+          randomPositions.map((position, i) => {
+            return (
+              <TargetMesh
+                position={position}
+                color={randomColors[i]}
+                shapes={randomShapes[i]}
+                setHitCount={setHitCount}
+              />
+            );
+          })}
+      </instancedMesh>
     </>
   );
   3;
