@@ -145,3 +145,9 @@ export const CurrentSelectedMemoAtom = atom({
   key: "CurrentSelectedMemoAtom",
   default: undefined,
 });
+
+// 현재 선택된 마이룸 내 배치된 오브젝트 정보
+export const CurrentSelectedMyRoomObjectAtom = atom({
+  key: "CurrentSelectedMyRoomObjectAtom",
+  default: undefined,
+});

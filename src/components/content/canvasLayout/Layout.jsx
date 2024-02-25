@@ -15,6 +15,7 @@ import { Footer } from "./canvasUserInterfaces/common/Footer";
 import { Popup } from "./canvasUserInterfaces/ground/Popup";
 import { MyRoomToolBar } from "./canvasUserInterfaces/myRoom/MyRoomToolBar";
 import { Memo } from "./canvasUserInterfaces/myRoom/Memo";
+import { SelectedObjectMenuBar } from "./canvasUserInterfaces/myRoom/SelectedObjectMenuBar";
 
 export const CanvasLayout = ({ children }) => {
   const [isLoadCompleted] = useRecoilState(IsLoadCompletedAtom);
@@ -42,6 +43,7 @@ export const CanvasLayout = ({ children }) => {
           {currentMap === "MY_ROOM" && (
             <>
               <MyRoomToolBar />
+              {currentMyRoomPlayer?.id === me.id && <SelectedObjectMenuBar />}
             </>
           )}
         </>
